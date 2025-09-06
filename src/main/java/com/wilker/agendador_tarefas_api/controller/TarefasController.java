@@ -46,6 +46,11 @@ public class TarefasController {
                                                                   @RequestParam ("id") String id){
         return ResponseEntity.ok(tarefasService.alteraStatusTarefa(status, id));
     }
+    @PutMapping
+    public ResponseEntity<TarefasDTOResponse> alterarDadosTarefa(@RequestBody TarefasDTORequest tarefasDTORequest,
+                                                                 @RequestParam ("id") String id){
+        return ResponseEntity.ok(tarefasService.alterarDadosTarefa(tarefasDTORequest, id));
+    }
 
 
 
