@@ -3,6 +3,7 @@ package com.wilker.agendador_tarefas_api.controller;
 
 import com.wilker.agendador_tarefas_api.infrastructure.dto.in.TarefasDTORequest;
 import com.wilker.agendador_tarefas_api.infrastructure.dto.out.TarefasDTOResponse;
+import com.wilker.agendador_tarefas_api.infrastructure.enums.StatusNotificacaoEnum;
 import com.wilker.agendador_tarefas_api.service.TarefasService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -39,6 +40,11 @@ public class TarefasController {
     public ResponseEntity<Void> deletaTarefaPorId(@RequestParam ("id") String id){
         tarefasService.deletaTarefaPorId(id);
         return ResponseEntity.ok().build();
+    }
+    @PatchMapping
+    public ResponseEntity<TarefasDTOResponse> alterarStatusTarefa(@RequestParam ("status") StatusNotificacaoEnum status,
+                                                                  @RequestParam ("id") String id){
+        return ResponseEntity.ok(tarefasService.alteraStatusTarefa(status, id));
     }
 
 

@@ -66,4 +66,12 @@ public class TarefasService {
         tarefasRepository.deleteById(id);
     }
 
+    public TarefasDTOResponse alteraStatusTarefa(StatusNotificacaoEnum statusNotificacaoEnum, String id){
+
+        TarefasEntity tarefa = tarefasRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException ("ID não encontrado"));
+        tarefa.setStatusNotificacaoEnum(statusNotificacaoEnum);
+        return tarefaConverter.paraTarefaDTO(tarefasRepository.save(tarefa));
+    }
+
 }
