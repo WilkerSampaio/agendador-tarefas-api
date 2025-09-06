@@ -35,6 +35,11 @@ public class TarefasController {
     public ResponseEntity<List<TarefasDTOResponse>> buscaTarefaPorEmail(@RequestHeader ("Authorization") String token){
         return ResponseEntity.ok(tarefasService.buscarTarefaPorEmail(token));
     }
+    @DeleteMapping
+    public ResponseEntity<Void> deletaTarefaPorId(@RequestParam ("id") String id){
+        tarefasService.deletaTarefaPorId(id);
+        return ResponseEntity.ok().build();
+    }
 
 
 
