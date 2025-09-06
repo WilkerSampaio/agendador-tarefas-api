@@ -59,4 +59,11 @@ public class TarefasService {
         return tarefaConverter.paraListaTarefaDTO(tarefaEntity);
     }
 
+    public void deletaTarefaPorId(String id){
+        if(!tarefasRepository.existsById(id)){
+            throw new ResourceNotFoundException("ID não encontrado");
+        }
+        tarefasRepository.deleteById(id);
+    }
+
 }
