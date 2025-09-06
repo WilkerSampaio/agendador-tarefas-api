@@ -5,6 +5,7 @@ import com.wilker.agendador_tarefas_api.infrastructure.dto.in.TarefasDTORequest;
 import com.wilker.agendador_tarefas_api.infrastructure.dto.out.TarefasDTOResponse;
 import com.wilker.agendador_tarefas_api.infrastructure.entity.TarefasEntity;
 import com.wilker.agendador_tarefas_api.infrastructure.enums.StatusNotificacaoEnum;
+import com.wilker.agendador_tarefas_api.infrastructure.exception.ResourceNotFoundException;
 import com.wilker.agendador_tarefas_api.infrastructure.mapper.TarefaConverter;
 import com.wilker.agendador_tarefas_api.infrastructure.mapper.TarefaUpdateConverter;
 import com.wilker.agendador_tarefas_api.infrastructure.repository.TarefasRepository;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +36,17 @@ public class TarefasService {
         TarefasEntity tarefa = tarefaConverter.paraTarefaEntity(tarefasDTORequest);
 
         return tarefaConverter.paraTarefaDTO(tarefasRepository.save(tarefa));
+    }
+    public List<TarefasDTOResponse> buscaListaDeTarefaPorPeriodo(LocalDateTime dataInicial, LocalDateTime dataFinal){
+
+        List<TarefasEntity> tarefaEntity = tarefasRepository.findByDataEventoBetweenAndStatusNotificacaoEnum(
+                dataInicial, dataFinal, StatusNotificacaoEnum.PENDENTE);
+        if(tarefaEntity.isEmpty()){
+            throw new ResourceNotFoundException("Nenhuma tarefa encontrada");
+        }
+
+        return tarefaConverter.paraListaTarefaDTO(tarefaEntity);
+
     }
 
 }

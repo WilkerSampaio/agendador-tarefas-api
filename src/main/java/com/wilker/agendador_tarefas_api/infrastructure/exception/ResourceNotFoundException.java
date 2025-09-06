@@ -1,4 +1,4 @@
-package com.wilker.agendadortarefas.infrastructure.exception;
+package com.wilker.agendador_tarefas_api.infrastructure.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message) {
