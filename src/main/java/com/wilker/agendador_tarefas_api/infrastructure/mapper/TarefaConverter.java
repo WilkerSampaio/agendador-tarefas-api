@@ -1,8 +1,9 @@
 package com.wilker.agendador_tarefas_api.infrastructure.mapper;
 
-import com.wilker.agendadortarefas.infrastructure.dto.in.TarefasDTORequest;
-import com.wilker.agendadortarefas.infrastructure.dto.out.TarefasDTOResponse;
-import com.wilker.agendadortarefas.infrastructure.entity.TarefasEntity;
+
+import com.wilker.agendador_tarefas_api.infrastructure.dto.in.TarefasDTORequest;
+import com.wilker.agendador_tarefas_api.infrastructure.dto.out.TarefasDTOResponse;
+import com.wilker.agendador_tarefas_api.infrastructure.entity.TarefasEntity;
 import org.mapstruct.Mapper;
 
 import java.util.List;
