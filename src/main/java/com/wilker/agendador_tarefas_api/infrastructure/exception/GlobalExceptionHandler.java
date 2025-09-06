@@ -1,6 +1,7 @@
 package com.wilker.agendador_tarefas_api.infrastructure.exception;
 
-import com.wilker.agendadortarefas.infrastructure.dto.out.ErrorDTOResponse;
+
+import com.wilker.agendador_tarefas_api.infrastructure.dto.out.ErrorDTOResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
