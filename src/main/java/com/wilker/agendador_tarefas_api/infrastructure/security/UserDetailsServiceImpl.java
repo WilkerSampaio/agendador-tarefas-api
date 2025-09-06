@@ -1,7 +1,8 @@
 package com.wilker.agendador_tarefas_api.infrastructure.security;
 
-import com.wilker.agendadortarefas.infrastructure.client.UsuarioClient;
-import com.wilker.agendadortarefas.infrastructure.dto.out.UsuarioDTOResponse;
+
+import com.wilker.agendador_tarefas_api.infrastructure.client.UsuarioClient;
+import com.wilker.agendador_tarefas_api.infrastructure.dto.out.UsuarioDTOResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
