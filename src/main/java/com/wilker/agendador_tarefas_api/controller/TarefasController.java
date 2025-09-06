@@ -31,6 +31,10 @@ public class TarefasController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)LocalDateTime dataFinal){
         return ResponseEntity.ok(tarefasService.buscaListaDeTarefaPorPeriodo(dataInicial, dataFinal));
     }
+    @GetMapping
+    public ResponseEntity<List<TarefasDTOResponse>> buscaTarefaPorEmail(@RequestHeader ("Authorization") String token){
+        return ResponseEntity.ok(tarefasService.buscarTarefaPorEmail(token));
+    }
 
 
 
