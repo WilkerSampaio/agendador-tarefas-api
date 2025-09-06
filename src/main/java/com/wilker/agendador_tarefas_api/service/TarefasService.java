@@ -46,7 +46,17 @@ public class TarefasService {
         }
 
         return tarefaConverter.paraListaTarefaDTO(tarefaEntity);
+    }
 
+    public List<TarefasDTOResponse> buscarTarefaPorEmail(String token){
+        String email = jwtUtil.extractUsername(token.substring(7));
+
+        List<TarefasEntity> tarefaEntity = tarefasRepository.findByEmailUsuario(email);
+        if(tarefaEntity.isEmpty()){
+            throw new ResourceNotFoundException("Nenhuma tarefa encontrada");
+        }
+
+        return tarefaConverter.paraListaTarefaDTO(tarefaEntity);
     }
 
 }
