@@ -74,4 +74,12 @@ public class TarefasService {
         return tarefaConverter.paraTarefaDTO(tarefasRepository.save(tarefa));
     }
 
+    public TarefasDTOResponse alterarDadosTarefa(TarefasDTORequest tarefasDTORequest, String id){
+        TarefasEntity tarefasEntity = tarefasRepository.findById(id).orElseThrow(
+                ()-> new ResourceNotFoundException("ID não encontrado"));
+
+        tarefaUpdateConverter.updateTarefas(tarefasDTORequest, tarefasEntity);
+        return tarefaConverter.paraTarefaDTO(tarefasRepository.save(tarefasEntity));
+    }
+
 }
