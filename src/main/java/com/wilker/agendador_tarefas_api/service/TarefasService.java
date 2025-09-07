@@ -41,9 +41,6 @@ public class TarefasService {
 
         List<TarefasEntity> tarefaEntity = tarefasRepository.findByDataEventoBetweenAndStatusNotificacaoEnum(
                 dataInicial, dataFinal, StatusNotificacaoEnum.PENDENTE);
-        if(tarefaEntity.isEmpty()){
-            throw new ResourceNotFoundException("Nenhuma tarefa encontrada");
-        }
 
         return tarefaConverter.paraListaTarefaDTO(tarefaEntity);
     }
