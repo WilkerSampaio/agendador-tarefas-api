@@ -30,30 +30,30 @@ public class TarefasService {
 
         String email = jwtUtil.extractUsername(token.substring(7));
 
-        tarefasDTORequest.setEmailUsuario(email);
-        tarefasDTORequest.setDataCriacao(LocalDateTime.now());
-        tarefasDTORequest.setStatusNotificacaoEnum(StatusNotificacaoEnum.PENDENTE);
-        TarefasEntity tarefa = tarefaConverter.paraTarefaEntity(tarefasDTORequest);
+        TarefasDTORequest tarefasDTORequestFinal = new TarefasDTORequest(null,tarefasDTORequest.nomeTarefa(), tarefasDTORequest.descricao(),
+                LocalDateTime.now(), tarefasDTORequest.dataEvento(), email, null, StatusNotificacaoEnum.PENDENTE);
 
-        return tarefaConverter.paraTarefaDTO(tarefasRepository.save(tarefa));
+        TarefasEntity tarefasEntity = tarefaConverter.paraTarefaEntity(tarefasDTORequestFinal);
+
+        return tarefaConverter.paraTarefaDTO(tarefasRepository.save(tarefasEntity));
     }
     public List<TarefasDTOResponse> buscaListaDeTarefaPorPeriodo(LocalDateTime dataInicial, LocalDateTime dataFinal){
 
-        List<TarefasEntity> tarefaEntity = tarefasRepository.findByDataEventoBetweenAndStatusNotificacaoEnum(
+        List<TarefasEntity> tarefasEntity = tarefasRepository.findByDataEventoBetweenAndStatusNotificacaoEnum(
                 dataInicial, dataFinal, StatusNotificacaoEnum.PENDENTE);
 
-        return tarefaConverter.paraListaTarefaDTO(tarefaEntity);
+        return tarefaConverter.paraListaTarefaDTO(tarefasEntity);
     }
 
     public List<TarefasDTOResponse> buscarTarefaPorEmail(String token){
         String email = jwtUtil.extractUsername(token.substring(7));
 
-        List<TarefasEntity> tarefaEntity = tarefasRepository.findByEmailUsuario(email);
-        if(tarefaEntity.isEmpty()){
+        List<TarefasEntity> tarefasEntity = tarefasRepository.findByEmailUsuario(email);
+        if(tarefasEntity.isEmpty()){
             throw new ResourceNotFoundException("Nenhuma tarefa encontrada");
         }
 
-        return tarefaConverter.paraListaTarefaDTO(tarefaEntity);
+        return tarefaConverter.paraListaTarefaDTO(tarefasEntity);
     }
 
     public void deletaTarefaPorId(String id){
@@ -65,10 +65,10 @@ public class TarefasService {
 
     public TarefasDTOResponse alteraStatusTarefa(StatusNotificacaoEnum statusNotificacaoEnum, String id){
 
-        TarefasEntity tarefa = tarefasRepository.findById(id).orElseThrow(
+        TarefasEntity tarefasEntity = tarefasRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException ("ID não encontrado"));
-        tarefa.setStatusNotificacaoEnum(statusNotificacaoEnum);
-        return tarefaConverter.paraTarefaDTO(tarefasRepository.save(tarefa));
+        tarefasEntity.setStatusNotificacaoEnum(statusNotificacaoEnum);
+        return tarefaConverter.paraTarefaDTO(tarefasRepository.save(tarefasEntity));
     }
 
     public TarefasDTOResponse alterarDadosTarefa(TarefasDTORequest tarefasDTORequest, String id){
