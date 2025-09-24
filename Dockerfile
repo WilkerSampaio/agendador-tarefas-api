@@ -7,3 +7,4 @@ COPY build/libs/agendador-tarefas-api-0.0.1-SNAPSHOT.jar /app/agendador-tarefas-
 EXPOSE 8081
 
 CMD ["java", "-jar", "/app/agendador-tarefas-api.jar"]
+
