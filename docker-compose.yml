@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: api-container
+    ports:
+      - "8081:8081"  # Expondo a porta da API
+    environment:
+      - MONGO_URI=mongodb://localhost:27017/db_agendador
+    depends_on:
+      - mongo
+    networks:
+      - app-network
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo-container
+    ports:
+      - "27017:27017"  # Expondo a porta do MongoDB
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
